@@ -7,14 +7,16 @@ public class Movie {
     private int duration;
     private int releaseYear;
     private int rating;
+    private boolean isFavorite;
 
-    public Movie(int movieId, String title, String genre, int duration, int releaseYear, int rating) {
+    public Movie(int movieId, String title, String genre, int duration, int releaseYear, int rating, boolean isFavorite) {
         this.movieId = movieId;
         this.title = title;
         this.genre = genre;
         this.duration = duration;
         this.releaseYear = releaseYear;
         this.rating = rating;
+        this.isFavorite = isFavorite;
     }
 
     public int getRating() {
@@ -63,5 +65,13 @@ public class Movie {
 
     public void setMovieId(int movieId) {
         this.movieId = movieId;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 }

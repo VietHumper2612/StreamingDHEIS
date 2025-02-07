@@ -36,8 +36,8 @@ public class AddMovieDialogController {
                 genreField.getText(),
                 Integer.parseInt(durationField.getText()),
                 Integer.parseInt(releaseYearField.getText()),
-                Integer.parseInt(ratingField.getText()),
-                false
+                Integer.parseInt(ratingField.getText())
+                boolean isFavorite
             );
             dbController.createMovie(movie);
             dialogStage.close();

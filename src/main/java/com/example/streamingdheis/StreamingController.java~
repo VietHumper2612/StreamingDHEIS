@@ -125,7 +125,7 @@ public class StreamingController {
         String email = emailField.getText();
         if (email != null && !email.isEmpty()) {
             try {
-                List<Movie> favoriteMovies = dbController.getFavoriteMovies(email);
+                List<Movie> favoriteMovies = dbController.getFavoriteMoviesByEmail(email);
                 moviesTable.getItems().setAll(favoriteMovies);
             } catch (SQLException e) {
                 e.printStackTrace();

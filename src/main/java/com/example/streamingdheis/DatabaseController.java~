@@ -46,8 +46,7 @@ public class DatabaseController {
                         resultSet.getString("genre"),
                         resultSet.getInt("duration"),
                         resultSet.getInt("release_year"),
-                        resultSet.getInt("rating"),
-                        resultSet.getBoolean("is_favorite")
+                        resultSet.getInt("rating")
                 ));
             }
         }
@@ -67,8 +66,7 @@ public class DatabaseController {
                         resultSet.getString("genre"),
                         resultSet.getInt("duration"),
                         resultSet.getInt("release_year"),
-                        resultSet.getInt("rating"),
-                        resultSet.getBoolean("is_favorite")
+                        resultSet.getInt("rating")
                 );
             }
         }
@@ -128,8 +126,7 @@ public class DatabaseController {
                         rs.getString("genre"),
                         rs.getInt("duration"),
                         rs.getInt("release_year"),
-                        rs.getInt("rating"),
-                        rs.getBoolean("is_favorite")
+                        rs.getInt("rating")
                 ));
             }
         }
@@ -152,8 +149,7 @@ public class DatabaseController {
                         resultSet.getString("genre"),
                         resultSet.getInt("duration"),
                         resultSet.getInt("release_year"),
-                        resultSet.getInt("rating"),
-                        resultSet.getBoolean("is_favorite")
+                        resultSet.getInt("rating")
                 ));
             }
         }
