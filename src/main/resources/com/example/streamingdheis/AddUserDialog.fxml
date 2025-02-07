@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.streamingdheis.AddUserDialogController" styleClass="root">
+    <TextField fx:id="emailField" promptText="Email" styleClass="text-field"/>
+    <TextField fx:id="nameField" promptText="Name" styleClass="text-field"/>
+    <Button text="Add User" onAction="#addUser" styleClass="button"/>
+</VBox>

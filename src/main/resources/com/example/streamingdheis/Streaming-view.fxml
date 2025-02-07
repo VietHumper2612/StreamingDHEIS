@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="com.example.streamingdheis.StreamingController" styleClass="root">
+    <TextField fx:id="emailField" promptText="Enter Email" styleClass="text-field"/>
+    <HBox spacing="10">
+        <Button onAction="#searchFavorites" text="Search" styleClass="button"/>
+        <Button onAction="#addMovie" text="Add Movie" styleClass="button"/>
+        <Button onAction="#editMovie" text="Edit Movie" styleClass="button"/>
+        <Button onAction="#deleteMovie" text="Delete Movie" styleClass="button"/>
+        <Button onAction="#addUser" text="Add User" styleClass="button"/>
+        <Button onAction="#addFavorite" text="Add Favorite" styleClass="button"/>
+    </HBox>
+    <TableView fx:id="moviesTable" styleClass="table-view">
+        <columns>
+            <TableColumn fx:id="movieIdColumn" text="Movie ID" />
+            <TableColumn fx:id="titleColumn" text="Title" styleClass="table-column"/>
+            <TableColumn fx:id="genreColumn" text="Genre" styleClass="table-column"/>
+            <TableColumn fx:id="durationColumn" text="Duration" styleClass="table-column"/>
+            <TableColumn fx:id="releaseYearColumn" text="Release Year" styleClass="table-column"/>
+            <TableColumn fx:id="ratingColumn" text="Rating" styleClass="table-column"/>
+        </columns>
+    </TableView>
+</VBox>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.streamingdheis.AddMovieDialogController" styleClass="root">
+    <TextField fx:id="titleField" promptText="Title" styleClass="text-field"/>
+    <TextField fx:id="genreField" promptText="Genre" styleClass="text-field"/>
+    <TextField fx:id="durationField" promptText="Duration" styleClass="text-field"/>
+    <TextField fx:id="releaseYearField" promptText="Release Year" styleClass="text-field"/>
+    <TextField fx:id="ratingField" promptText="Rating" styleClass="text-field"/>
+    <Button text="Add" onAction="#addMovie" styleClass="button"/>
+</VBox>
