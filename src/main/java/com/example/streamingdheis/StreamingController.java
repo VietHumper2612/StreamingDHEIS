@@ -92,11 +92,7 @@ public class StreamingController {
     @FXML
     public void initialize() {
         dbController = new DatabaseController();
-        try {
-            favoriteMovies = dbController.getFavoriteMovies("user@example.com");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        favoriteMovies = dbController.getFavoriteMovies("user@example.com");
         favoriteColumn = new TableColumn<>("Favorite");
         favoriteColumn.setCellValueFactory(cellData -> {
             boolean isFavorite = favoriteMovies.contains(cellData.getValue());
@@ -124,12 +120,8 @@ public class StreamingController {
     public void searchFavorites(ActionEvent actionEvent) {
         String email = emailField.getText();
         if (email != null && !email.isEmpty()) {
-            try {
-                List<Movie> favoriteMovies = dbController.getFavoriteMovies(email);
-                moviesTable.getItems().setAll(favoriteMovies);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            List<Movie> favoriteMovies = dbController.getFavoriteMovies(email);
+            moviesTable.getItems().setAll(favoriteMovies);
         }
     }
 

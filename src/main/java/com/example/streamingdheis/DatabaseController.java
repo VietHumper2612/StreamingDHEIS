@@ -83,7 +83,7 @@ public class DatabaseController {
             statement.setString(2, movie.getGenre());
             statement.setInt(3, movie.getDuration());
             statement.setInt(4, movie.getReleaseYear());
-            statement.setInt(5, movie.getRating());
+            statement.setDouble(5, movie.getRating());
             statement.executeUpdate();
         }
     }
@@ -96,7 +96,7 @@ public class DatabaseController {
             statement.setString(2, movie.getGenre());
             statement.setInt(3, movie.getDuration());
             statement.setInt(4, movie.getReleaseYear());
-            statement.setInt(5, movie.getRating());
+            statement.setDouble(5, movie.getRating());
             statement.setInt(6, movie.getMovieId());
             statement.executeUpdate();
         }
@@ -111,32 +111,33 @@ public class DatabaseController {
         }
     }
 
-    public List<Movie> getFavoriteMovies(String email) throws SQLException {
-        List<Movie> favorites = new ArrayList<>();
-        String query = "SELECT Movies.* FROM Movies " +
-                "INNER JOIN favorites ON Movies.movie_id = favorites.movie_id " +
-                "WHERE favorites.email = ?";
+    public List<Movie> getFavoriteMovies(String userEmail) {
+        List<Movie> favoriteMovies = new ArrayList<>();
+        String query = "SELECT movies.* FROM movies " +
+                "JOIN favorites ON movies.id = favorites.movie_id " +
+                "WHERE favorites.user_email = ?";
 
-        try (Connection connection = connect();  // Ensure connection is created
-             PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, email);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                favorites.add(new Movie(
-                        rs.getInt("movie_id"),
-                        rs.getString("title"),
-                        rs.getString("genre"),
-                        rs.getInt("duration"),
-                        rs.getInt("release_year"),
-                        rs.getInt("rating"),
-                        rs.getBoolean("is_favorite")
-                ));
+        try (Connection connection = connect();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, userEmail);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Movie movie = new Movie();
+                movie.setId(resultSet.getInt("id"));
+                movie.setTitle(resultSet.getString("title"));
+                movie.setGenre(resultSet.getString("genre"));
+                movie.setDuration(resultSet.getInt("duration"));
+                movie.setReleaseYear(resultSet.getInt("release_year"));
+                movie.setRating(resultSet.getDouble("rating"));
+                favoriteMovies.add(movie);
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return favorites;
+
+        return favoriteMovies;
     }
-
-
 
     public List<Movie> getMoviesByTitle(String title) throws SQLException {
         String query = "SELECT * FROM Movies WHERE title LIKE ?";
