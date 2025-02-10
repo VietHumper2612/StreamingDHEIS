@@ -90,7 +90,7 @@ public class StreamingController {
     }
 
     @FXML
-    public void initialize() {
+    public void initialize() throws SQLException {
         dbController = new DatabaseController();
         favoriteMovies = dbController.getFavoriteMovies("user@example.com");
         favoriteColumn = new TableColumn<>("Favorite");
@@ -117,7 +117,7 @@ public class StreamingController {
     }
 
     @FXML
-    public void searchFavorites(ActionEvent actionEvent) {
+    public void searchFavorites(ActionEvent actionEvent) throws SQLException {
         String email = emailField.getText();
         if (email != null && !email.isEmpty()) {
             List<Movie> favoriteMovies = dbController.getFavoriteMovies(email);

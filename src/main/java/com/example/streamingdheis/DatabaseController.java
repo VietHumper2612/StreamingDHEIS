@@ -7,7 +7,7 @@ import java.util.List;
 public class DatabaseController {
     private static final String URL = "jdbc:mysql://localhost:3306/streaming_platform";
     private static final String USER = "root";
-    private static final String PASSWORD = "root";
+    private static final String PASSWORD = "root1803";
 
     public Connection connect() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
@@ -23,13 +23,13 @@ public class DatabaseController {
         }
     }
 
-    public void addFavorite(String email, int movieId) throws SQLException {
-        String query = "INSERT INTO favorites (email, movie_id) VALUES (?, ?)";
-        try (Connection connection = connect();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, email);
-            statement.setInt(2, movieId);
-            statement.executeUpdate();
+    public void addFavorite(String userEmail, int movieId) throws SQLException {
+        String sql = "INSERT INTO Favorites (user_email, movie_id) VALUES (?, ?)";
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, userEmail);
+            pstmt.setInt(2, movieId);
+            pstmt.executeUpdate();
         }
     }
 
@@ -111,31 +111,29 @@ public class DatabaseController {
         }
     }
 
-    public List<Movie> getFavoriteMovies(String userEmail) {
+    public List<Movie> getFavoriteMovies(String email) throws SQLException {
         List<Movie> favoriteMovies = new ArrayList<>();
-        String query = "SELECT movies.* FROM movies " +
-                "JOIN favorites ON movies.id = favorites.movie_id " +
-                "WHERE favorites.user_email = ?";
-
-        try (Connection connection = connect();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, userEmail);
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-                Movie movie = new Movie();
-                movie.setId(resultSet.getInt("id"));
-                movie.setTitle(resultSet.getString("title"));
-                movie.setGenre(resultSet.getString("genre"));
-                movie.setDuration(resultSet.getInt("duration"));
-                movie.setReleaseYear(resultSet.getInt("release_year"));
-                movie.setRating(resultSet.getDouble("rating"));
-                favoriteMovies.add(movie);
+        String sql = "SELECT m.* FROM Movies m "
+                + "JOIN Favorites f ON m.movie_id = f.movie_id "
+                + "JOIN Users u ON f.user_email = u.email "
+                + "WHERE u.email = ?";
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, email);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    favoriteMovies.add(new Movie(
+                            rs.getInt("movie_id"),
+                            rs.getString("title"),
+                            rs.getString("genre"),
+                            rs.getInt("duration"),
+                            rs.getInt("release_year"),
+                            rs.getDouble("rating"),
+                            rs.getBoolean("is_favorite")
+                    ));
+                }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-
         return favoriteMovies;
     }
 
